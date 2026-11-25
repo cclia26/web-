@@ -30,12 +30,12 @@ window.teamData = {
       ]
     },
     {
-      "name": "组员三",
-      "major": "",
-      "grade": "",
-      "interest": "",
-      "bio": "",
-      "photo": ""
+      "name": "童俊滔",
+      "major": "环境设计",
+      "grade": "大四",
+      "interest": "打游戏，摄影，绘画",
+      "bio": "我是一名环境设计专业的大四学生，平时喜欢打游戏、摄影和绘画，享受用不同方式记录生活和表达创意。",
+      "photo": "images/member-3.jpg"
     },
     {
       "name": "刘昱岑",
