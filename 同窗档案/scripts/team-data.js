@@ -2,12 +2,12 @@
 window.teamData = {
   "members": [
     {
-      "name": "组员一",
-      "major": "",
-      "grade": "",
-      "interest": "",
-      "bio": "",
-      "photo": ""
+      "name": "张值达",
+      "major": "环境设计",
+      "grade": "大四",
+      "interest": "运动：网球、羽毛球、游泳",
+      "bio": "豫都张汉生，字英俊。现为环境设计专业大四学生，性格随和，乐观开朗。平日喜好网球、羽毛球与游泳，亦对建筑、城市文化及新鲜事物颇感兴趣。喜欢探索不同的生活方式，乐于结交志趣相投的朋友。人生尚在探索之中，不求事事圆满，但求活得自在、有趣且充实。",
+      "photo": "images/member-1.jpg"
     },
     {
       "name": "冯丽娜",
@@ -54,5 +54,5 @@ window.teamData = {
       "photo": "images/member-5.jpg"
     }
   ],
-  "version": "2026-11-25-black-gold-shi"
+  "version": "2026-11-25-merged-profiles"
 };
