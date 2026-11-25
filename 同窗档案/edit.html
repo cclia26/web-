@@ -12,18 +12,18 @@
 <body >
   <a class="skip" href="#content">跳到正文</a>
   <header><div class="wrap bar">
-    <a class="brand" href="index.html"><span class="book" aria-hidden="true"></span><span>小组成员介绍</span></a>
-    <nav aria-label="主导航"><a href="index.html#members">组员索引</a><a class="edit-link" href="edit.html">填写资料</a></nav>
+    <a class="brand" href="index.html"><span>同窗档案</span></a>
+    <nav aria-label="主导航"><a href="index.html">首页</a><a href="index.html#members">认识我们</a><a class="edit-link" href="edit.html" aria-current="page">填写资料</a></nav>
   </div></header>
   <main id="content" class="wrap">
     <section><h1 id="title">填写成员资料</h1><p class="lede">五位组员都在这里填写。姓名和照片出现在首页，详细资料在个人页展示。</p></section>
     <noscript><p>请开启 JavaScript，或在 VS Code 编辑 scripts/team-data.js。</p></noscript>
-    <form id="editor" hidden>
-      <div id="forms"></div>
+    <form id="editor" novalidate hidden>
+      <div id="member-tabs" class="member-tabs" role="group" aria-label="选择要编辑的成员"></div><div id="forms"></div>
       <div class="actions"><p>用 Live Server 预览时，「保存并预览」会同步到当前浏览器。要把资料和照片带给组员，点击「导出资料文件」，用下载的 team-data.js 替换项目 scripts 文件夹里的同名文件。</p>
       <button id="save" type="submit">保存并预览</button><button type="button" id="export" class="secondary">导出资料文件</button><p id="status" role="status"></p></div>
     </form>
   </main>
-  <footer><div class="wrap"><span>小组成员介绍</span> · <span id="credits">组员一、组员二、组员三、组员四、组员五</span></div></footer>
+  <footer><div class="wrap footer-bar"><a href="index.html">同窗档案</a><span id="credits">组员一、冯丽娜、组员三、刘昱岑、石一茗</span><span>小组成员介绍</span></div></footer>
 </body>
 </html>
