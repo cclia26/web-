@@ -18,7 +18,7 @@ const people = Array.from({ length: 5 }, (_, index) => {
 });
 const byId = id => document.getElementById(id);
 function photoFor(member, index) {
-  return member.photo || 'images/avatar-' + (index + 1) + '.svg';
+  return member.photo || 'images/member-placeholder.svg';
 }
 function setText(id, value) {
   const node = byId(id);
@@ -45,7 +45,7 @@ people.forEach((person, index) => {
     const name = document.createElement('span');
     name.textContent = person.name;
     const detail = document.createElement('small');
-    detail.textContent = person.major || '个人主页';
+    detail.textContent = person.major ? [person.major, person.grade].filter(Boolean).join(' / ') : '资料待补充';
     link.append(photo, name, detail);
     item.append(link);
     directory.append(item);
@@ -64,5 +64,20 @@ if (document.body.dataset.member) {
     for (const field of ['major', 'grade', 'interest']) setText(field, person[field] || '待填写');
     byId('photo').src = photoFor(person, index);
     byId('photo').alt = person.photo ? person.name + '的照片' : '';
+    // 作品链接使用文本节点展示，与个人资料一起保存。
+    const links = byId('personal-links');
+    if (links) {
+      links.replaceChildren();
+      for (const item of person.links || []) {
+        if (!/^https?:\/\//i.test(item.url)) continue;
+        const row = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = item.url;
+        link.textContent = item.label;
+        row.append(link);
+        if (item.description) row.append('：' + item.description);
+        links.append(row);
+      }
+    }
   }
 }

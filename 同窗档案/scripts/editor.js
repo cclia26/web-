@@ -1,5 +1,11 @@
 const editor = byId('editor');
 const panels = [];
+const memberButtons = [];
+// 切换显示表单，五位成员的输入仍保留在同一份表单中。
+function selectMember(index) {
+  panels.forEach((panel, i) => { panel.hidden = i !== index; });
+  memberButtons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+}
 const photos = people.map(person => person.photo);
 const status = byId('status');
 let pendingPhotos = 0;
@@ -8,7 +14,7 @@ const fields = [
   ['major', '专业', '例如：数字媒体'],
   ['grade', '年级', '例如：大二'],
   ['interest', '兴趣', '例如：摄影、游泳'],
-  ['bio', '一句话简介', '用一句话介绍自己。']
+  ['bio', '个人介绍', '介绍你的兴趣、学习与创作。']
 ];
 
 
@@ -33,12 +39,13 @@ async function readPhoto(file) {
 people.forEach((person, index) => {
   const panel = document.createElement('fieldset');
   const legend = document.createElement('legend');
-  legend.textContent = '组员 ' + (index + 1);
+  legend.textContent = person.name + '的资料';
   const grid = document.createElement('div');
   grid.className = 'fields';
   for (const [key, labelText, hint] of fields) {
     const label = document.createElement('label');
     label.textContent = labelText;
+    if (key === 'bio') label.className = 'wide';
     const input = document.createElement(key === 'bio' ? 'textarea' : 'input');
     input.name = key + '-' + index;
     input.placeholder = hint;
@@ -78,7 +85,22 @@ people.forEach((person, index) => {
   panel.append(legend, grid);
   byId('forms').append(panel);
   panels.push(panel);
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'member-tab';
+  button.setAttribute('aria-controls', 'member-form-' + index);
+  panel.id = 'member-form-' + index;
+  const avatar = document.createElement('img');
+  avatar.src = photoFor(person, index);
+  avatar.alt = '';
+  const caption = document.createElement('span');
+  caption.textContent = person.name;
+  button.append(avatar, caption);
+  button.addEventListener('click', () => selectMember(index));
+  byId('member-tabs').append(button);
+  memberButtons.push(button);
 });
+selectMember(0);
 
 editor.hidden = false;
 if (fileMode) {
@@ -91,11 +113,13 @@ function collectTeam() {
     status.textContent = '正在处理照片，请稍后保存。';
     return null;
   }
+  const invalidIndex = panels.findIndex(panel => Array.from(panel.querySelectorAll('input, textarea')).some(input => !input.validity.valid));
+  if (invalidIndex !== -1) selectMember(invalidIndex);
   if (!editor.reportValidity()) return null;
   const value = name => editor.elements.namedItem(name).value.trim();
   return {
     members: panels.map((panel, index) => {
-      const member = { photo: photos[index] };
+      const member = { ...people[index], photo: photos[index] };
       for (const [key] of fields) member[key] = value(key + '-' + index);
       member.name ||= '组员 ' + (index + 1);
       return member;
